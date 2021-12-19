@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+    <title>Document</title>
+    <style>
+        #map {
+            height: 250px;
+            /* width:70%; */
+            /* justify-content: center*/
+            /* margin-left: 15%; */
+        }
+        .container-fluid{
+ width: 410px;
+ margin: 50px auto;
+ padding: 10px;
+
+}
+
+
+.inputs {
+    padding: 2rem 0 2rem 0;
+    text-align: center;
+    justify-content: center;
+    background: white;
+
+}
+
+.inputs input[type="text"] {
+    height: 3.5rem;
+    width: 20rem;
+    background: #212121;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 10px;
+    border: none;
+    background-color: transparent;
+    border: 2px solid #c2c2c2;
+    border-radius: 2px;
+    margin-right:4px ;
+
+}
+.inputs input[type="submit"] {
+    height: 3.2rem;
+    width: 6.5rem;
+    background: #44c767;
+    font-weight: bold;
+    color: white;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    border: none;
+    border-radius: 2px;
+}
+
+/* -------------------------------display */
+.display {
+    text-align: center;
+    width: 400px;
+    color: #16a864;
+}
+.wrapper {
+    margin: 0 9rem;
+
+    background-color: white;
+    height: 45vh;
+    margin: 50px auto;
+    border-radius: 2px;
+}
+
+.wrapper h2{
+    padding: 5px 0;
+    text-align: center;
+    background: #44c767;
+    color: white;
+    font-family: sans-serif;
+  }
+  .wrapper p{
+    margin:20px 50px;
+    margin-right: 20px;
+text-align: left;
+color: #04214c;
+    font-size:23px;
+  }
+
+  .wrapper h2 span{
+    font-size: 26px;
+    color: #9beefb;
+  }
+    .wrapper p span{
+    color: #90006e;
+    font-size: 25px;
+  }
+  /* <a href="#" class="myButton">Click to get details of place</a> */
+
+.myButton {
+	background:linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
+	background-color:#44c767;
+	border-radius:18px;
+	border:2px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:20px 20px;
+	text-decoration:none;
+	text-shadow:0px 0px 43px #2f6627;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
+	background-color:#5cbf2a;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div class="container-fluid">
+            <section class="main">
+            <section class="inputs">
+            <button placeholder="submit" id="add" class="myButton">Click to get details of place</button>
+            </section>`
+            
+            <section class="display">
+                <div class="wrapper">
+                    <h2 id="cityoutput"></h2>
+                    <p id="description"></p>
+                    <p id="temp"></p>
+                    <p id="wind"></p>
+
+                </div>
+            </section>
+            </section>
+
+    </div>
+</body>
+
+<script type="text/javascript">
+    var map = L.map('map').setView([25.8650, 80.2094], 4);
+
+// Set up the OSM layer
+mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+attribution: '&copy; ' + mapLink + ' Contributors',
+maxZoom: 18,
+}).addTo(map);
+map.on('draw:created', function (e) {
+var type = e.layerType,
+layer = e.layer;
+if (type === 'marker') {
+layer.bindPopup('A popup!');
+}
+drawnItems.addLayer(layer);
+});
+var markerOptions = {
+    title: "MyLocation",
+    clickable: true,
+    draggable: true
+}
+
+map.on('click', function(e) { 
+    console.log(e);
+    console.log("ksdjfhkjkljsd",e.latlng);
+    var lat = Number(String(e.latlng.lat));
+    var lng = Number(String(e.latlng.lng));
+    var apik = "3045dd712ffe6e702e3245525ac7fa38";
+    fetch("https://api.openweathermap.org/data/2.5/onecall?lat="+String(lat)+"&lon="+String(lng)+"&exclude=hourly,daily&appid=3045dd712ffe6e702e3245525ac7fa38")
+    .then(res=>res.json())
+    .then(data =>{
+      console.log(data);
+    })
+    lat = Number(String(e.latlng.lat));
+    lng = Number(String(e.latlng.lng));
+    fetch("http://api.positionstack.com/v1/reverse?access_key=603ffea39eca97a7c5d401e4b0936730&query="+String(lat)+","+String(lng)+"")
+    .then(res=>res.json())
+    .then(data =>{
+      var res = data['data'][0]['county'];
+      console.log(data);
+      console.log(res);
+      var inputval = res;
+var btn = document.querySelector('#add');
+var city = document.querySelector('#cityoutput')
+var descrip = document.querySelector('#description')
+var temp = document.querySelector('#temp')
+var wind = document.querySelector('#wind')
+
+//kelvin to celcious. 1 Kelvin is equal to -272.15 Celsius.
+
+function convertion(val){
+    return (val - 273).toFixed(2)
+}
+//Now we have to collect all the information with the help of fetch method
+
+    btn.addEventListener('click', function(){
+
+//This is the api link from where all the information will be collected
+
+        fetch('https://api.openweathermap.org/data/2.5/weather?q='+inputval+'&appid='+apik)
+        .then(res => res.json())
+
+         //.then(data => console.log(data))
+
+        .then(data => {
+
+//Now you need to collect the necessary information with the API link. Now I will collect that information and store it in different constants.
+
+            var nameval = data['name']
+            var descrip = data['weather']['0']['description']
+            var tempature = data['main']['temp']
+            var wndspd = data['wind']['speed']
+//Now with the help of innerHTML you have to make arrangements to display all the information in the webpage.
+            city.innerHTML=`Weather of <span>${nameval}<span>`
+            temp.innerHTML = `Temperature: <span>${ convertion(tempature)} C</span>`
+            description.innerHTML = `Sky Conditions: <span>${descrip}<span>`
+            wind.innerHTML = `Wind Speed: <span>${wndspd} km/h<span>`
+        })
+        fetch("https://api.ambeedata.com/soil/history/by-lat-lng?lat=12.9889055&lng=77.574044&from=2020-07-13%2012%3A16%3A44&to=2020-07-14%2012%3A16%3A44", {
+	"method": "GET",
+	"headers": {
+		"x-api-key": "5eb76a7724f8836c47e5b54f6dcb45fc2be1d727801ba0ee7b27c7e8754b084a",
+		"Content-type": "application/json"
+	}
+})
+.then(response => {
+	console.log(response);
+})
+.catch(err => {
+	console.error(err);
+})
+//Now the condition must be added that what if you do not input anything in the input box.
+        .catch(err => console.log(err));
+    })
+    })
+});
+
+</script>
+
+
+</html>

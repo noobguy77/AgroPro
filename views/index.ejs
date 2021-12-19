@@ -4,9 +4,56 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/public/CSS/styles.css">
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+
+    <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2&family=Comfortaa&family=DM+Sans:ital@1&family=Karla:ital,wght@1,300&family=Lato&family=Rubik&family=Ubuntu&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2&family=Comfortaa&family=Comic+Neue&family=DM+Sans:ital@1&family=Karla:ital,wght@1,300&family=Lato&family=Roboto&family=Rubik&family=Ubuntu&display=swap" rel="stylesheet"> <title>Document</title>
 </head>
 <body>
-    
+    <div class="section-1">
+        <img class="tractor" src="/public/images/tractor.jpg"/>
+        <header>
+        <h1 class="logo">Bashcodes</h1>
+        <nav>
+            <ul class="nav_links">
+                <li><a class="nav-link1" href="">Home</a></li>
+                <li><a class="nav-link2" href="">Statistics</a></li>
+                <li><a class="nav-link3" href="/weather-forecast"> Forecast</a></li>
+                <li><a class="nav-link4" href="/prices">Prices</a></li>
+                <li><a class="nav-link41" href="/chat">Discussion</a></li>
+                <% if(username.length) {%>
+                    <li><a class="nav-link5" href="/login">Welcome <%= username %></a></li>
+                    <!-- <a class="nav-link6" href="/register">Register</a> -->
+                <%} else { %>
+                    <li><a class="nav-link5" href="/login">Login</a></li>
+                    <li><a class="nav-link6" href="/register">Register</a></li>
+                <% } %>
+            </ul>
+        </nav>
+        <a class="cta" href="#"><button>Contact</button></a>
+        </header>
+        <div class="rectangle1"><i class="fab fa-envira fa-4x"></i><h1 class="link"><a style="text-decoration: none;"  href='/crops'>Crops</a></h1></div>
+        <div class="rectangle2"><i class="fas fa-viruses fa-4x"></i><h1 class="link"><a style="text-decoration: none;"href="/agro-chemicals">Agro-Chemicals</a></h1></div>
+        <div class="rectangle3"><i class="fas fa-tractor fa-4x"></i><h1 class="link"><a style="text-decoration: none;"  href='/crops'>Production</a></h1></div>
+        <div class="rectangle4"><i class="fas fa-plus fa-2x"></i><h1 class="link"><a style="text-decoration: none;"  href='/crops'>Factors Affecting Yeild</a></h1></h1></div>
+        <!-- <div class="rectangle5"><h1 class="link "><a style="text-decoration: none;"  href='/crops'>Practices</a></h1></div> -->
+
+        <!-- <div class="rectangle5"><h1 class="link">Weather forcast</h1></div> -->
+        <!-- <h1 class="placesegoeui-bold-black-40px">Home</h1>
+        <div class="rectangle-5border-2px-hillary"></div>
+        <h1 class="titlesegoeui-bold-black-30px">CROPS</h1>
+        <div class="rectangle-3"></div> -->
+    </div>
 </body>
 </html>

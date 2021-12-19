@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/CSS/styles.css">
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+
+    <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2&family=Comfortaa&family=DM+Sans:ital@1&family=Karla:ital,wght@1,300&family=Lato&family=Rubik&family=Ubuntu&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2&family=Comfortaa&family=Comic+Neue&family=DM+Sans:ital@1&family=Karla:ital,wght@1,300&family=Lato&family=Roboto&family=Rubik&family=Ubuntu&display=swap" rel="stylesheet"> <title>Document</title>
+</head>
+<body>
+    <div class="register-form">
+        <h1 class="sign-up">Sign up</h1>
+        <!-- <label for="username">username:</label> -->
+        <input class="signup-name" type="text" id="username" name="username" placeholder="Name"><br>
+        <!-- <label for="password">password:</label> -->
+        <input class="signup-password" type="password" id="password" name="password" placeholder="Password"><br>
+        <span style="margin-left: 50px;">Password length should be minimum 8 characters long</span>
+        <input class="signup-cpassword" type="password" id="password" name="password" placeholder="Confirm Password"><br>
+        <!-- <label for="email">email:</label> -->
+        <input class="signup-email" type="email" id="email" name="email" placeholder="Email ID"><br>
+        
+        
+       <a href="/login"> <button class="signup-btn" type="submit" onclick="handleSubmit()" >SIGN UP</button></a>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    // const axios=require("axios");
+    const handleSubmit=async(e,res)=>{
+        const username=document.getElementById("username").value;
+        const email=document.getElementById("email").value;
+        const password=document.getElementById("password").value;
+        const logtest=async(e)=>{
+                const res1= await axios.post("/api/user/register",{
+                    "username":username,
+                    "password":password,
+                    "email":email
+                })
+                // .then( redirect("/login"));
+               
+
+        }
+        logtest();
+        
+        }
+        
+</script>
+</html>

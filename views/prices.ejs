@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/CSS/styles.css">
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+
+    <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2&family=Comfortaa&family=DM+Sans:ital@1&family=Karla:ital,wght@1,300&family=Lato&family=Rubik&family=Ubuntu&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2&family=Comfortaa&family=Comic+Neue&family=DM+Sans:ital@1&family=Karla:ital,wght@1,300&family=Lato&family=Roboto&family=Rubik&family=Ubuntu&display=swap" rel="stylesheet"> <title>Document</title>
+</head>
+<body>
+    <nav class="navbar1" style="padding-top: 20px;">
+        <a class="nav-link1" href="/">Home</a>
+        <a class="nav-link2" href="">Statistics</a>
+        <a class="nav-link3" href="/weather-forecast">Forecast</a>
+        <a class="nav-link4" href="/prices">Prices</a>
+    </nav>
+    <h1 class="real"><i class="fas fa-rupee-sign"></i>Real Time Prices</h1>
+    <div class="state">State:<input class="input" type="text" id = 'state'></div>
+    <div class="district"> district:<input class="input" type="text" id = 'dist'></div>
+    <div class="vegetable"> Vegetable: <input class="input" type="text" id='mar'></div>
+    <button type='submit' onclick='check()' id='but'>Check price in various markets</button>
+    <ul id='markets'>
+
+    </ul>
+</body>
+<script>
+    function check(){
+        $('input').click(function() {
+            $('ul').empty()
+        });
+        $('button').click(function() {
+            $('ul').empty()
+        });
+        var state = document.getElementById('state').value;
+        var dist = document.getElementById('dist').value;
+        var veg = document.getElementById('mar').value;
+        state = state.charAt(0).toUpperCase() + state.slice(1);
+        dist = dist.charAt(0).toUpperCase() + dist.slice(1);
+        veg = veg.charAt(0).toUpperCase() + veg.slice(1);
+        fetch("https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=579b464db66ec23bdd000001cdd3946e44ce4aad7209ff7b23ac571b&format=json&state="+state+"&offset=0&limit=1000&filters[state]="+state+"&filters[district]="+dist+"&filters[commodity]="+veg)
+        .then(resp => resp.json())
+        .then(data => {
+            console.log(data['records']);
+            var ul = document.getElementById('markets');
+            var n = data['records'].length;
+            if(n == 0)
+            {
+                let li = document.createElement('li');
+                li.innerHTML=veg+" is not available in "+dist;
+                ul.appendChild(li);
+            }
+            for(var i = 0;i<n;i++)
+            {
+                let li = document.createElement('li');
+                // li.innerHTML="lol";
+                li.innerHTML="In "+data['records'][i]['market']+" the "+data['records'][i]['commodity']+" is sold at min price of "+String(Number(data['records'][i]['min_price'])/100)+" and at max price of "+String(Number(data['records'][i]['max_price'])/100);
+                ul.appendChild(li);
+            }
+        })
+    }
+</script>
+</html>
